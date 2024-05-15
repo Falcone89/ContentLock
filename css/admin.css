@@ -1,0 +1,61 @@
+/*
+    Overrides
+*/
+#wpcontent {
+    padding-left: 0 !important;
+    position: relative
+}
+
+#wpbody {
+    padding-left: 20px;
+}
+
+/*
+    Custom elements
+*/
+.contentlock-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    font-size: 1.75rem;
+    border-bottom: 1px solid #ddd;
+}
+
+    .contentlock-header img {
+        margin-right: 1rem;
+    }
+
+    .contentlock-header .admin-title {
+        font-weight: 400;
+        color: #646970;
+        letter-spacing: 0.05rem;
+    }
+
+    .contentlock-header .admin-title span {
+        font-weight: 800;
+        /*color: #0071bd;*/
+        letter-spacing: 0.10rem;
+        background: #9901AB;
+        background: linear-gradient(to bottom, #9901AB 0%, #0071BD 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+/*
+    Responsive
+*/
+@media screen and (max-width: 600px) {
+    #wpcontent {
+        padding-top: 46px;
+    }
+}
+@media screen and (max-width: 782px) {
+    #wpbody {
+        padding-left: 10px;
+    }
+    .contentlock-header {
+        padding: 10px 12px;
+    }
+}
