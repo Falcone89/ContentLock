@@ -8,6 +8,11 @@
 
     if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
+        // Verify nonce
+        if ( !isset( $_POST['cntlk_settings_nonce'] ) || !wp_verify_nonce( sanitize_text_field( wp_unslash($_POST['cntlk_settings_nonce']) ), 'cntlk_settings_nonce' ) ) {
+            wp_die('Invalid nonce value');
+        }
+
         // Fields
         $email_subject = sanitize_text_field($_POST['email_subject']);
         $email_message = wp_kses_post($_POST['email_message']);
@@ -34,6 +39,7 @@
     } ?>
 
     <form method="post">
+        <?php wp_nonce_field( 'cntlk_settings_nonce', 'cntlk_settings_nonce' ); ?>
 
         <h2>Email settings</h2>
 

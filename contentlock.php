@@ -6,7 +6,7 @@ Author: Adam Solymosi
 Author URI: https://www.linkedin.com/in/adam-solymosi/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Version: 1.0.2
+Version: 1.0.4
 */
 
 /*
@@ -15,6 +15,13 @@ Version: 1.0.2
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
+/*
+    Define constants
+*/
+define( 'CNTLK_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__) );
+define( 'CNTLK_PLUGIN_DIR_URL', plugin_dir_url(__FILE__) );
+define( 'CNTLK_PLUGIN_BASENAME', plugin_basename(__FILE__) );
 
 /*
     Plugin activation hook
@@ -141,14 +148,18 @@ function cntlk_menu() {
     );
 }
 
-// Display groups (Default view)
+// Display group layouts
 function cntlk_display_groups() {
-    include plugin_dir_path(__FILE__) . 'groups.php';
+    if ( isset($_GET['group']) ) {
+        include CNTLK_PLUGIN_DIR_PATH . 'edit-group.php'; // Edit group
+    } else {
+        include CNTLK_PLUGIN_DIR_PATH . 'groups.php'; // Groups (list)
+    }
 }
 
 // Display plugin settings
 function cntlk_display_settings() {
-    include plugin_dir_path(__FILE__) . 'settings.php';
+    include CNTLK_PLUGIN_DIR_PATH . 'settings.php';
 }
 
 // Add menu
@@ -162,7 +173,7 @@ function cntlk_settings_link($links) {
     array_unshift($links, $settings_link);
     return $links;
 }
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'cntlk_settings_link');
+add_filter('plugin_action_links_' . CNTLK_PLUGIN_BASENAME, 'cntlk_settings_link');
 
 /*
     List of plugin pages
@@ -181,8 +192,8 @@ function cntlk_is_plugin_admin_page() {
 */
 function cntlk_enqueue_scripts() {
     if ( cntlk_is_plugin_admin_page() ) {
-        wp_register_style('custom-admin-styles', plugins_url('css/admin.css', __FILE__), array(), '1.0', 'all');
-        wp_enqueue_style('custom-admin-styles');
+        wp_enqueue_style('cntlk-admin-styles', CNTLK_PLUGIN_DIR_URL . 'css/admin.css', null, '1.0.1');
+        wp_enqueue_script('cntlk-admin-scripts', CNTLK_PLUGIN_DIR_URL . 'js/admin.js', null, '1.0', true);
     }
 }
 add_action('admin_enqueue_scripts', 'cntlk_enqueue_scripts');
@@ -192,7 +203,7 @@ add_action('admin_enqueue_scripts', 'cntlk_enqueue_scripts');
 */
 function cntlk_admin_header() {
     if ( cntlk_is_plugin_admin_page() ) {
-        include plugin_dir_path(__FILE__) . '/inc/admin_header.php';
+        include CNTLK_PLUGIN_DIR_PATH . '/inc/admin_header.php';
     }
 }
 add_action('in_admin_header', 'cntlk_admin_header');
@@ -364,7 +375,7 @@ function cntlk_display_login($group_ids) {
     if ( !empty(wp_get_referer()) && wp_get_referer() != get_the_permalink() ) {
         $_SESSION['contentlock_previous_url'] = wp_get_referer(); // Store previous url
     }
-    include plugin_dir_path(__FILE__) . 'inc/login.php'; // Login layout
+    include CNTLK_PLUGIN_DIR_PATH . 'inc/login.php'; // Login layout
     exit;
 }
 
