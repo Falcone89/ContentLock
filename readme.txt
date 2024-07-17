@@ -3,8 +3,8 @@ Contributors: adamfalcon
 Tags: two-step authentication, content protect, 2FA, secure page, email access
 Requires at least: 6.2
 Requires PHP: 7.0
-Tested up to: 6.5.4
-Stable tag: 1.0.4
+Tested up to: 6.5.5
+Stable tag: 1.0.5
 License: GPLv2 or later
 
 Secure access to your content (Pages, Posts, or Custom Post Types) with ContentLock's email-based two-step verification!
@@ -34,6 +34,10 @@ Upload/Download the ContentLock plugin to your site, activate it, and click on t
 Make sure your email system is functioning correctly on your site, or verify that your SMTP settings are properly configured.
 
 == Changelog ==
+
+= 1.0.5 =
+* Security updates
+* Optimization
 
 = 1.0.4 =
 * Security updates
